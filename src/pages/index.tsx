@@ -32,10 +32,13 @@ const HomePage = () => {
   }, []);
 
   return (
-    <>
-      <BlogCard />
-      {allPosts.length}
-    </>
+    <div className="px-8 pt-6">
+      <div className="space-y-4">
+        {allPosts.map((post, index) => (
+          <BlogCard key={index} post={post} />
+        ))}
+      </div>
+    </div>
   );
 };
 
