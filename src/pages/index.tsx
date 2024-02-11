@@ -1,13 +1,16 @@
 import React, { useCallback, useEffect, useState } from "react";
 
 // import components
-import { BlogCard, LoadingBar } from "@/components/global";
+import { LoadingBar } from "@/components/global";
 
 // import service
 import { BlogServices } from "@/components/services";
 
 // import type
 import { IPosts } from "@/components/types";
+
+// import container
+import BlogPostsContainer from "@/components/container/blog-posts";
 
 const HomePage = () => {
   const { getALlPosts } = BlogServices();
@@ -31,21 +34,17 @@ const HomePage = () => {
     fetchALlPosts();
   }, []);
 
-  if(isLoadingAllPosts){
-    return(
+  if (isLoadingAllPosts) {
+    return (
       <div className="h-[70vh]">
-      <LoadingBar />
+        <LoadingBar />
       </div>
-    )
+    );
   }
 
   return (
-    <div className="md:px-8 px-4">
-      <div className="space-y-4">
-        {allPosts.map((post, index) => (
-          <BlogCard key={index} post={post} />
-        ))}
-      </div>
+    <div className="md:px-8 px-4 pb-10">
+      <BlogPostsContainer postDatas={allPosts} />
     </div>
   );
 };
