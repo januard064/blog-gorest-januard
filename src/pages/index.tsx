@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 
 // import components
-import { BlogCard } from "@/components/global";
+import { BlogCard, LoadingBar } from "@/components/global";
 
 // import service
 import { BlogServices } from "@/components/services";
@@ -30,6 +30,14 @@ const HomePage = () => {
   useEffect(() => {
     fetchALlPosts();
   }, []);
+
+  if(isLoadingAllPosts){
+    return(
+      <div className="h-[70vh]">
+      <LoadingBar />
+      </div>
+    )
+  }
 
   return (
     <div className="px-8 pt-6">

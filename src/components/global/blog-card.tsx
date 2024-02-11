@@ -7,7 +7,7 @@ import { IPosts, IComments } from "../types";
 import { BlogServices } from "../services";
 
 // import components
-import { DialogBox } from ".";
+import { DialogBox, LoadingBar } from ".";
 
 export const BlogCard = ({ post }: { post: IPosts }) => {
   const { getPostDetil, getComments } = BlogServices();
@@ -81,24 +81,29 @@ export const BlogCard = ({ post }: { post: IPosts }) => {
         isOpen={isOpenDialog}
         handleClose={() => setIsOpenDialog(false)}
       >
-        <div className="h-[60vh] overflow-y-auto">
-          <div className="p-6">
+        <div className="h-[60vh] overflow-y-auto p-6">
+          <div>
             {isLoadingPostDetail || isLoadingComments ? (
-              <div>Loading</div>
+              <div className="w-full h-full"><LoadingBar /></div>
             ) : (
               <div>
                 <div>
                   <p className="text-lg font-semibold">{post?.title}</p>
                   <p className="mt-2">{post?.body}</p>
                   <div className="mt-6">
-                    {comments.length > 0 && (
-                      <>
+                    {comments.length > 0 ? (
+                      <div className="space-y-2">
                         {comments.map((comm, index) => (
-                          <div key={index}>
+                          <div key={index}  className="w-full p-2 bg-[#F9F6F7] rounded-md">
+                            <p className="font-semibold text-sm">{comm?.name}</p>
                             <p>{comm?.body}</p>
                           </div>
                         ))}
-                      </>
+                      </div>
+                    ) : (
+                      <div className="w-full justify-center text-sm text-gray-400">
+                        No comments yet
+                      </div>
                     )}
                   </div>
                 </div>

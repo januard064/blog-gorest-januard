@@ -1,14 +1,16 @@
 import { useState, Fragment, SetStateAction, Dispatch } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
+import { IoCloseSharp } from "react-icons/io5";
+
 export const DialogBox = ({
   isOpen,
   handleClose,
-  children
+  children,
 }: {
   isOpen: boolean;
   handleClose: () => void;
-  children: React.ReactNode
+  children: React.ReactNode;
 }) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -37,14 +39,13 @@ export const DialogBox = ({
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full max-w-xl transform overflow-hidden rounded-lg bg-white text-left align-middle shadow-xl transition-all">
-                <div className="flex justify-between">
-                  {/* <Dialog.Title
-                    as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
-                  >
-                    {"title"}
-                  </Dialog.Title> */}
-                  {children}
+                <div className="">
+                  <div>
+                    <div className="flex justify-end w-full pr-4 pt-4 text-xl">
+                      <div className="cursor-pointer" onClick={handleClose}><IoCloseSharp /></div>
+                    </div>
+                    {children}
+                  </div>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
