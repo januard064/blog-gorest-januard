@@ -88,7 +88,7 @@ export const BlogCard = ({ post }: { post: IPosts }) => {
             ) : (
               <div>
                 <div>
-                  <p className="text-lg font-semibold">{post?.title}</p>
+                  <div className="text-lg font-semibold sticky top-0 bg-white">{post?.title}</div>
                   <p className="mt-2">{post?.body}</p>
                   <div className="mt-6">
                     {comments.length > 0 ? (

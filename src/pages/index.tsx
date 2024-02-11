@@ -40,7 +40,7 @@ const HomePage = () => {
   }
 
   return (
-    <div className="px-8 pt-6">
+    <div className="md:px-8 px-4">
       <div className="space-y-4">
         {allPosts.map((post, index) => (
           <BlogCard key={index} post={post} />
