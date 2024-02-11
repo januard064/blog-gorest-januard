@@ -1,10 +1,12 @@
-import { Menu, Transition } from '@headlessui/react';
-import type { ReactNode } from 'react';
-import { Fragment } from 'react';
+import { Menu, Transition } from "@headlessui/react";
+import Link from "next/link";
+import { usePathname } from 'next/navigation'
+import type { ReactNode } from "react";
+import { Fragment } from "react";
 
 interface ListMenu {
   label: ReactNode;
-  action: any;
+  href: string;
 }
 
 export const MenuNavbar = ({
@@ -14,6 +16,7 @@ export const MenuNavbar = ({
   menuButton?: ReactNode;
   listMenu?: ListMenu[];
 }) => {
+  const pathname = usePathname()
   return (
     <Menu as="div" className="flex items-center justify-center">
       <Menu.Button>{menuButton}</Menu.Button>
@@ -30,7 +33,9 @@ export const MenuNavbar = ({
           {listMenu?.map((menu: ListMenu, index) => (
             <div key={index} className="cursor-pointer py-4">
               <Menu.Item>
-                <div onClick={menu.action}>{menu.label}</div>
+                <Link href={menu.href}>
+                  <div className={`${pathname === menu.href ? 'font-bold' : ''}`}>{menu.label}</div>
+                </Link>
               </Menu.Item>
             </div>
           ))}
