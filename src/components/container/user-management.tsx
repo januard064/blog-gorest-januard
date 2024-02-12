@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 // import components
 import { Button, LoadingOverlay, UserCard, UserDialog } from "../global";
+import { toast } from "react-toastify";
 
 // import type
 import { IInitUsers, IUsers } from "../types";
@@ -50,9 +51,15 @@ const UserManagementContainer = ({
       const resDelete = await deleteUser(id);
       console.log(resDelete);
       fetchAllUsers();
-      alert("Sucess Delete User");
+      toast("Sucess Delete User", {
+        type: "success",
+        autoClose: 3000,
+      });
     } catch (error) {
-      alert("Failed Delete User");
+      toast("Failed Delete User", {
+        type: "error",
+        autoClose: 3000,
+      });
     } finally {
       setIsLaodingAction(false);
     }
@@ -64,8 +71,10 @@ const UserManagementContainer = ({
       const resStatus = await postUser(data);
       if (resStatus.status === 201) {
         fetchAllUsers();
-        alert("Sucess Post User");
-        console.log(resStatus?.status);
+        toast("Sucess Post User", {
+          type: "success",
+          autoClose: 3000,
+        });
       } else {
         const resError = await resStatus.json();
         let message = "Failed Post User";
@@ -75,12 +84,16 @@ const UserManagementContainer = ({
         } else {
           message;
         }
-
-        alert(message);
+        toast(message, {
+          type: "error",
+          autoClose: 3000,
+        });
       }
     } catch (error) {
-      console.log("ERROR", error);
-      alert("Failed Post User");
+      toast("Failed Post User", {
+        type: "error",
+        autoClose: 3000,
+      });
     } finally {
       setIsLaodingAction(false);
     }
@@ -92,8 +105,10 @@ const UserManagementContainer = ({
       const resStatus = await editUser(id, data);
       if (resStatus.status === 200) {
         fetchAllUsers();
-        alert("Sucess Edit User");
-        console.log(resStatus?.status);
+        toast("Sucess Edit User", {
+          type: "success",
+          autoClose: 3000,
+        });
       } else {
         const resError = await resStatus.json();
         let message = "Failed Edit User";
@@ -104,11 +119,16 @@ const UserManagementContainer = ({
           message;
         }
 
-        alert(message);
+        toast(message, {
+          type: "error",
+          autoClose: 3000,
+        });
       }
     } catch (error) {
-      console.log("ERROR", error);
-      alert("Failed Edit User");
+      toast("Failed Edit User", {
+        type: "error",
+        autoClose: 3000,
+      });
     } finally {
       setIsLaodingAction(false);
     }

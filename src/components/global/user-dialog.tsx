@@ -88,8 +88,8 @@ export const UserDialog = (props: IDialogBox) => {
         gender: props.data?.gender,
         status: props.data?.status,
       }));
-    } else {
-      setUserData(initUser);
+    } else if(props?.type === "Add"){
+      setUserData(initUser)
     }
   }, [props]);
 
