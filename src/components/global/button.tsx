@@ -1,8 +1,18 @@
-export const Button = ({ icon, label }: { icon?: any, label: string }) => {
-  return <div className="p-2 cursor-pointer bg-[#FFE8D6] rounded-md">
-    <div className="flex items-center space-x-2">
-        <div>{icon}</div>
-        <div>{label}</div>
+import React, { ReactNode } from "react";
+
+export const Button = ({
+  children,
+  onClick,
+}: {
+  children: ReactNode;
+  onClick: () => void;
+}) => {
+  return (
+    <div
+      onClick={onClick}
+      className="p-2 cursor-pointer bg-[#FFE8D6] rounded-md"
+    >
+      {children}
     </div>
-    </div>;
+  );
 };

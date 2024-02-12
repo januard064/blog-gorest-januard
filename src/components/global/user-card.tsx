@@ -6,7 +6,17 @@ import { MdOutlineEdit, MdDelete } from "react-icons/md";
 // import type
 import { IUsers } from "../types";
 
-export const UserCard = ({ user }: { user: IUsers }) => {
+export const UserCard = ({
+  user,
+  handleOpenEditModal,
+  handleOpenDeleteModal,
+  handleFetchDetailUser,
+}: {
+  user: IUsers;
+  handleOpenEditModal: () => void;
+  handleOpenDeleteModal: () => void;
+  handleFetchDetailUser: (id: number) => void;
+}) => {
   return (
     <div className="grid grid-cols-6 bg-white rounded-md p-4">
       <div className="grid grid-cols-2 w-full col-span-5 ">
@@ -20,8 +30,20 @@ export const UserCard = ({ user }: { user: IUsers }) => {
         </div>
       </div>
       <div className="flex space-x-3 justify-end col-span-1">
-        <MdOutlineEdit className="text-lg cursor-pointer" />
-        <MdDelete className="text-lg  cursor-pointer" />
+        <MdOutlineEdit
+          className="text-lg cursor-pointer"
+          onClick={() => {
+            handleOpenEditModal();
+            handleFetchDetailUser(user?.id);
+          }}
+        />
+        <MdDelete
+          className="text-lg  cursor-pointer"
+          onClick={() => {
+            handleOpenDeleteModal();
+            handleFetchDetailUser(user?.id);
+          }}
+        />
       </div>
     </div>
   );
