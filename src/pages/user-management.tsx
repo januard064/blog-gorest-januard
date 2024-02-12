@@ -10,6 +10,8 @@ import { IUsers } from "@/components/types";
 import { LoadingBar } from "@/components/global";
 import UserManagementContainer from "@/components/container/user-management";
 
+import Head from "next/head";
+
 const UserManagement = () => {
   const { getAllUsers, getUserById, deleteUser } = UsersService();
 
@@ -68,18 +70,23 @@ const UserManagement = () => {
   }
 
   return (
-    <div className="md:px-8 px-4 pb-10">
-      <UserManagementContainer
-        userDatas={allUsers}
-        handleFetchDetailUser={handleFetchDetailUser}
-        isLoadingDetailUser={isLoadingDetailUser}
-        selectedUser={selectedUser}
-        fetchAllUsers={fetchAllUsers}
-        currentPage={currentPage}
-        handleNext={handleNext}
-        handleePrev={handleePrev}
-      />
-    </div>
+    <>
+      <Head>
+        <title>Users - Management</title>
+      </Head>
+      <div className="md:px-8 px-4 pb-10">
+        <UserManagementContainer
+          userDatas={allUsers}
+          handleFetchDetailUser={handleFetchDetailUser}
+          isLoadingDetailUser={isLoadingDetailUser}
+          selectedUser={selectedUser}
+          fetchAllUsers={fetchAllUsers}
+          currentPage={currentPage}
+          handleNext={handleNext}
+          handleePrev={handleePrev}
+        />
+      </div>
+    </>
   );
 };
 

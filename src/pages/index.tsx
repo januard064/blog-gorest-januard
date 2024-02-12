@@ -3,6 +3,8 @@ import React, { useCallback, useEffect, useState } from "react";
 // import components
 import { LoadingBar } from "@/components/global";
 
+import Head from "next/head";
+
 // import service
 import { BlogServices } from "@/components/services";
 
@@ -43,9 +45,14 @@ const HomePage = () => {
   }
 
   return (
-    <div className="md:px-8 px-4 pb-10">
-      <BlogPostsContainer postDatas={allPosts} />
-    </div>
+    <>
+      <Head>
+        <title>Blog - Posts</title>
+      </Head>
+      <div className="md:px-8 px-4 pb-10">
+        <BlogPostsContainer postDatas={allPosts} />
+      </div>
+    </>
   );
 };
 
