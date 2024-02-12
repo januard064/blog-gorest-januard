@@ -20,19 +20,22 @@ const UserManagement = () => {
     useState<boolean>(false);
   const [selectedUser, setSelectedUser] = useState<IUsers>();
 
-  
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const fetchAllUsers = useCallback(async () => {
-    setIsLoadingUsers(true);
-    try {
-      const resAllUsers = await getAllUsers();
-      setAllUsers(resAllUsers);
-    } catch (error) {
-      console.log("ERROR", error);
-    } finally {
-      setIsLoadingUsers(false);
-    }
-  }, [getAllUsers]);
+  const fetchAllUsers = useCallback(
+    async (page?: number) => {
+      setIsLoadingUsers(true);
+      try {
+        const resAllUsers = await getAllUsers(page?.toString());
+        setAllUsers(resAllUsers);
+      } catch (error) {
+        console.log("ERROR", error);
+      } finally {
+        setIsLoadingUsers(false);
+      }
+    },
+    [getAllUsers]
+  );
 
   const handleFetchDetailUser = async (id: number) => {
     setIsLoadingDetailUser(true);
@@ -45,11 +48,16 @@ const UserManagement = () => {
     }
   };
 
-
+  const handleNext = () => {
+    if (currentPage !== 0) setCurrentPage(currentPage + 1);
+  };
+  const handleePrev = () => {
+    if (currentPage !== 1) setCurrentPage(currentPage - 1);
+  };
 
   useEffect(() => {
-    fetchAllUsers();
-  }, []);
+    fetchAllUsers(currentPage);
+  }, [currentPage]);
 
   if (isLoadingUsers) {
     return (
@@ -67,6 +75,9 @@ const UserManagement = () => {
         isLoadingDetailUser={isLoadingDetailUser}
         selectedUser={selectedUser}
         fetchAllUsers={fetchAllUsers}
+        currentPage={currentPage}
+        handleNext={handleNext}
+        handleePrev={handleePrev}
       />
     </div>
   );

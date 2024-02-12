@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 // import components
 import { Button, LoadingOverlay, UserCard, UserDialog } from "../global";
@@ -19,12 +19,18 @@ const UserManagementContainer = ({
   isLoadingDetailUser,
   selectedUser,
   fetchAllUsers,
+  currentPage,
+  handleNext,
+  handleePrev
 }: {
   userDatas: IUsers[];
   handleFetchDetailUser: (id: number) => void;
   isLoadingDetailUser: boolean;
   selectedUser?: IUsers;
-  fetchAllUsers: () => void;
+  fetchAllUsers: (page?: number) => void;
+  currentPage: number;
+  handleNext: () => void;
+  handleePrev: () => void
 }) => {
   const { deleteUser, postUser, editUser } = UsersService();
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
@@ -160,6 +166,16 @@ const UserManagementContainer = ({
             handleFetchDetailUser={handleFetchDetailUser}
           />
         ))}
+
+        <div className="w-full flex items-center justify-center">
+          <div className="flex items-center space-x-3">
+            <div className="cursor-pointer" onClick={handleePrev}>prev</div>
+            <div className="px-1 flex justify-center items-center border border-[#FF971D] rounded-md">
+              {currentPage}
+            </div>
+            <div className="cursor-pointer" onClick={handleNext}>Next</div>
+          </div>
+        </div>
       </div>
       <UserDialog
         isOpen={isOpenModal}
