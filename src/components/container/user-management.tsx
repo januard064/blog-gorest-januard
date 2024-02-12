@@ -25,7 +25,7 @@ const UserManagementContainer = ({
   selectedUser?: IUsers;
   fetchAllUsers: () => void;
 }) => {
-  const { deleteUser, postUser } = UsersService();
+  const { deleteUser, postUser, editUser } = UsersService();
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [modalType, setModalType] = useState<"Add" | "Edit" | "Delete">("Add");
   const [isLoadingAction, setIsLaodingAction] = useState<boolean>(false);
@@ -65,7 +65,7 @@ const UserManagementContainer = ({
       if (resStatus.status === 201) {
         fetchAllUsers();
         alert("Sucess Post User");
-        console.log(resStatus?.status)
+        console.log(resStatus?.status);
       } else {
         const resError = await resStatus.json();
         let message = "Failed Post User";
@@ -81,6 +81,34 @@ const UserManagementContainer = ({
     } catch (error) {
       console.log("ERROR", error);
       alert("Failed Post User");
+    } finally {
+      setIsLaodingAction(false);
+    }
+  };
+
+  const handleEditUser = async (id: number, data: IInitUsers) => {
+    setIsLaodingAction(true);
+    try {
+      const resStatus = await editUser(id, data);
+      if (resStatus.status === 200) {
+        fetchAllUsers();
+        alert("Sucess Edit User");
+        console.log(resStatus?.status);
+      } else {
+        const resError = await resStatus.json();
+        let message = "Failed Edit User";
+
+        if (resError) {
+          message += ` -  ${resError[0].field} is ${resError[0].message}`;
+        } else {
+          message;
+        }
+
+        alert(message);
+      }
+    } catch (error) {
+      console.log("ERROR", error);
+      alert("Failed Edit User");
     } finally {
       setIsLaodingAction(false);
     }
@@ -121,6 +149,7 @@ const UserManagementContainer = ({
         data={selectedUser}
         handleDeleteUser={handleDeleteUser}
         handlePostUser={handlePostUser}
+        handleEditUser={handleEditUser}
       />
 
       {isLoadingAction && <LoadingOverlay />}

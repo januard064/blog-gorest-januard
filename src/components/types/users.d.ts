@@ -7,8 +7,8 @@ export interface IUsers {
 }
 
 export interface IInitUsers{
-    name: string;
-    email : string;
-    gender: string;
-    status: string
+    name: string | undefined;
+    email : string | undefined;
+    gender: string | undefined;
+    status: string | undefined
 }
