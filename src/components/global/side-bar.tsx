@@ -45,7 +45,7 @@ export const SideBarMenu = () => {
   ];
 
   return (
-    <div className="pl-8 space-y-6 fixed z-50">
+    <div className="pl-8 space-y-6 fixed z-10">
       {SIDE_MENUS.map((menu, index) => (
         <SideBarButton
           key={index}

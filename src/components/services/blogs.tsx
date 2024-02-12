@@ -1,6 +1,6 @@
 export const BlogServices = () => {
   const getALlPosts = () => {
-    return fetch("https://gorest.co.in/public/v2/posts")
+    return fetch(`${process.env.NEXT_PUBLIC_API_GOREST}/public/v2/posts`)
       .then((response) => {
         return response.json();
       })
@@ -10,7 +10,7 @@ export const BlogServices = () => {
   };
 
   const getPostDetil = (postId: number) => {
-    return fetch(`https://gorest.co.in/public/v2/posts/${postId}`)
+    return fetch(`${process.env.NEXT_PUBLIC_API_GOREST}/public/v2/posts/${postId}`)
     .then((response) => {
       return response.json();
     })
@@ -20,7 +20,7 @@ export const BlogServices = () => {
   }
 
   const getComments = (postId: number) => {
-    return fetch(`https://gorest.co.in/public/v2/posts/${postId}/comments`)
+    return fetch(`${process.env.NEXT_PUBLIC_API_GOREST}/public/v2/posts/${postId}/comments`)
     .then((response) => {
       return response.json();
     })
