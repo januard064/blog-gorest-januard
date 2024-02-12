@@ -5,3 +5,10 @@ export interface IUsers {
     gender: string;
     status: string
 }
+
+export interface IInitUsers{
+    name: string;
+    email : string;
+    gender: string;
+    status: string
+}

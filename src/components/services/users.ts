@@ -1,3 +1,5 @@
+import { IInitUsers } from "../types";
+
 export const UsersService = () => {
   const getAllUsers = () => {
     return fetch(`${process.env.NEXT_PUBLIC_API_GOREST}/public/v2/users`, {
@@ -15,7 +17,7 @@ export const UsersService = () => {
       });
   };
 
-  const getUserById = ( idUser: number ) => {
+  const getUserById = (idUser: number) => {
     return fetch(
       `${process.env.NEXT_PUBLIC_API_GOREST}/public/v2/users/${idUser}`,
       {
@@ -34,7 +36,30 @@ export const UsersService = () => {
       });
   };
 
-  const deleteUser = ( idUser?: number ) => {
+  const postUser = (userData: IInitUsers) => {
+    return fetch(`${process.env.NEXT_PUBLIC_API_GOREST}/public/v2/users`, {
+      method: "POST",
+      body: JSON.stringify({
+        name: userData?.name,
+        email: userData?.email,
+        gender: userData?.gender,
+        status: userData?.status,
+      }),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_YOUR_ACCESS_TOKEN}`,
+      },
+    })
+      .then((response) => {
+        return response
+      })
+      .catch((err: any) => {
+        return Promise.reject(err);
+      });
+  };
+
+  const deleteUser = (idUser?: number) => {
     return fetch(
       `${process.env.NEXT_PUBLIC_API_GOREST}/public/v2/users/${idUser}`,
       {
@@ -47,7 +72,7 @@ export const UsersService = () => {
       }
     )
       .then((response) => {
-       console.log(response)
+        console.log(response);
       })
       .catch((err: any) => {
         return Promise.reject(err);
@@ -57,6 +82,7 @@ export const UsersService = () => {
   return {
     getAllUsers,
     getUserById,
+    postUser,
     deleteUser,
   };
 };
